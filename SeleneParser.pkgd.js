@@ -40,41 +40,41 @@ var PacketType = exports.PacketType = function PacketType(options) {
 TYPES[1] = TYPES.discovery = new PacketType({
   hasPin: false,
   size: 0,
-  validate: payload => true,
-  toBuffer: (v) => new Buffer(0),
-  fromBuffer: (buffer) => null
+  validate: function() { return true },
+  toBuffer: function() { return new Buffer(0) },
+  fromBuffer: function() { return null }
 });
 
 TYPES[2] = TYPES.connection = new PacketType({
   hasPin: false,
   size: 1,
-  validate: payload => payload[0] <= 1,
-  toBuffer: (v) => new Buffer([Boolean(v)]),
-  fromBuffer: (buffer) => Boolean(buffer[0])
+  validate: function(payload) { return payload[0] <= 1 },
+  toBuffer: function(v) { return new Buffer([Boolean(v)]) },
+  fromBuffer: function(buffer) { return Boolean(buffer[0]) }
 });
 
 TYPES[3] = TYPES.devinfo = new PacketType({
   hasPin: false,
   size: -1,
-  validate: payload => payload.length <= 144,
-  toBuffer: (v) => new Buffer(v.substring(0, 144), 'utf8'),
-  fromBuffer: (buffer) => buffer.toString('utf8')
+  validate: function(payload) { return payload.length <= 144 },
+  toBuffer: function(v) { return new Buffer(v.substring(0, 144), 'utf8') },
+  fromBuffer: function(buffer) { return buffer.toString('utf8') }
 });
 
 TYPES[4] = TYPES.pininfo = new PacketType({
   hasPin: true,
   size: -1,
-  validate: payload => payload.length <= 144,
-  toBuffer: (v) => new Buffer(v.substring(0, 144), 'utf8'),
-  fromBuffer: (buffer) => buffer.toString('utf8')
+  validate: function(payload) { return payload.length <= 144 },
+  toBuffer: function(v) { return new Buffer(v.substring(0, 144), 'utf8') },
+  fromBuffer: function(buffer) { return buffer.toString('utf8') }
 });
 
 TYPES[5] = TYPES.pin = new PacketType({
   hasPin: true,
   size: 4,
-  validate: payload => true,
-  toBuffer: (v) => new Buffer([v, v >>> 8, v >>> 16, v >>> 24]),
-  fromBuffer: (buffer) => buffer.readUInt32LE(0)
+  validate: function() { return true },
+  toBuffer: function(v) { return new Buffer([v, v >>> 8, v >>> 16, v >>> 24]) },
+  fromBuffer: function(buffer) { return buffer.readUInt32LE(0) }
 });
 
 // Fill in .typeCode and .typeName on PacketTypes
@@ -223,23 +223,23 @@ Packet.prototype.toBuffer = function() {
 
 // @method Packet|null Packet.fromMqtt(String topic, Buffer message) -- Extracts Packets from valid MQTT messages
 Packet.fromMqtt = function(topic, message) {
-  var topic_tree = topic.split('/');
+  var topicTree = topic.split('/');
   
-  var typeSpec = TYPES[topic_tree[2]];
+  var typeSpec = TYPES[topicTree[2]];
   
   if(typeSpec === undefined) {
     return null;
   }
   
-  var address = parseInt(topic_tree[1], 16);
-  var pin = typeSpec.hasPin ? parseInt(topic_tree[3], 16) : null;
-  var isRequest = topic_tree[3 + typeSpec.hasPin] === 'r';
+  var address = parseInt(topicTree[1], 16);
+  var pin = typeSpec.hasPin ? parseInt(topicTree[3], 16) : null;
+  var isRequest = topicTree[3 + typeSpec.hasPin] === 'r';
   
   if(
-    topic_tree[0] !== 'Se' ||
-    topic_tree[1] !== address.toString(16).toUpperCase() ||
-    (typeSpec.hasPin && topic_tree[3] !== pin.toString(16).toUpperCase()) ||
-    topic_tree[3 + typeSpec.hasPin + isRequest] !== undefined
+    topicTree[0] !== 'Se' ||
+    topicTree[1] !== address.toString(16).toUpperCase() ||
+    (typeSpec.hasPin && topicTree[3] !== pin.toString(16).toUpperCase()) ||
+    topicTree[3 + typeSpec.hasPin + isRequest] !== undefined
   ) {
     return null;
   }

@@ -23,16 +23,18 @@
     "url": "https://github.com/Densaugeo/Selene-packets.git"
   },
   "scripts": {
+    "build": "browserify -s SeleneParser SeleneParser.js > SeleneParser.pkgd.js",
+    "doc": "thoth SeleneParser.js > doc/SeleneParser.md",
     "lint": "jshint *.js",
-    "test": "mocha test/SeleneParser.js",
-    "build": "browserify -s SeleneParser SeleneParser.js > SeleneParser.pkgd.js"
+    "test": "mocha test/SeleneParser.js"
   },
   "config": {},
   "dependencies": {},
   "devDependencies": {
     "browserify": "^13.0.0",
     "jshint": "^2.9.2",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "thoth-doc": "0.0.2"
   },
   "engines": {
     "node": ">=4.2.1",

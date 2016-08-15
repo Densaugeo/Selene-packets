@@ -150,3 +150,7 @@ Pin packet requesting that device 0x5E34 set pin 0xA1 to 13:
   isRequest: true
 }
 ~~~
+
+## License
+
+LGPL

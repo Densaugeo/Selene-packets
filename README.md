@@ -4,6 +4,8 @@ A packet format for self-describing IoT devices
 
 [![License: LGPL](https://img.shields.io/badge/license-LGPL-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0.en.html)
 
+[![Build Status](https://travis-ci.org/Densaugeo/Selene-packets.svg?branch=master)](https://travis-ci.org/Densaugeo/Selene-packets)
+
 ## Selene Packet Definitions
 
 Selene packets are used by Selene devices to describe pin changes, general device and pin info, connection state, and to make requests for changes. A μC can run one or more Selene device, publish packets related to it, and listen for request packets.

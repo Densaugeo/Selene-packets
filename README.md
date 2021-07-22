@@ -3,7 +3,7 @@
 A packet format for self-describing IoT devices
 
 [![License: LGPL](https://img.shields.io/badge/license-LGPL-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0.en.html)
-[![Build Status](https://travis-ci.org/Densaugeo/Selene-packets.svg?branch=master)](https://travis-ci.org/Densaugeo/Selene-packets)
+[![Build Status](https://travis-ci.com/Densaugeo/Selene-packets.svg?branch=master)](https://travis-ci.com/github/Densaugeo/Selene-packets)
 
 ## Selene Packet Definitions
 
